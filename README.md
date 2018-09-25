@@ -118,7 +118,7 @@ Post and get methods help webpage communicate with server. In this section, we i
 
 main.py
 ```python
-# Test the upload file from data.html
+# Upload file from data.html
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
 	if request.method == 'POST':
@@ -147,8 +147,25 @@ data.html - form
 The ```form``` part creates a interface for user to upload local file.
 
 
-
-
+### 5.3 Server Send Data to the Webpages
+In this section, we introduce how the server send data to webpages.
+main.py
+```python
+# Upload file from data.html and send data as json to webpages
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload_file():
+	if request.method == 'POST':
+		f =request.files['file']
+		f.save(secure_filename(f.filename))
+		# Read the data file
+		df = pd.read_csv(f.filename)
+		chart_data = df.to_dict(orient='records')
+		# Sent the data as a json file
+		chart_data = json.dumps(chart_data, indent=2)
+		data = {'chart_data': chart_data}
+		return render_template('data.html', name=f.filename, data=data)
+```
+And you could write a javascipt to receive the json data from server.
 
 
 
