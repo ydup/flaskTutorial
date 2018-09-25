@@ -59,9 +59,59 @@ So how does the flask load a webpage?
 Firstly, let's see how the webpage is stuctured in the flask project.
 
 + The webpages locate in the folder named _templates_.
-+ The CSS, javascipt and image files locate in the folder named _static_.
++ The CSS, javascipt and image files locate in the folder named _static_. The path of css, js and image should be _static/_. Don't write the path as _../static_, because flask can't find them.
 
+And then, if you have many wabpages to handle, and some of them use a same template, such as header and footer, 
+you can structure them into this, with the help of Jinja2:
 
+Template:
+```html
+<!DOCTYPE html>
+<!-- This is header-->
+<!-- Common field-->
+<!-- Body block start -->
+{% block body %}
+{% endblock %}
+<!-- Body block end-->
+<!-- This is footer-->
+```
+A specific webpage:
+```html
+<!DOCTYPE html>
+<!-- You don't need to write the header here-->
+<!-- Body block start -->
+{% block body %}
+<!-- Place body here-->
+{% endblock %}
+<!-- Body block end-->
+<!-- You don't need to write the footer here-->
+
+```
+And this chapter is a brief introduction to the structure of webpages. The methods how webpages and server communicate will be shown in the next chapter.
+
+## 5. How does the server communicate with webpages
+
+### 5.1 Access the Webpages
+We have the webpages in the chapter 4, and the first thing you gonna ask must be how I can access the webpage, even more, how I can shift different webpages manually or automatically.
+Before this, you should get to learn the ```@app.route```.
+
+Main.py to access a webpage:
+```python
+app = Flask(__name__)
+ # Basic part of the html
+@app.route('/')
+@app.route('/into')
+def intro():
+	return render_template('intro.html')
+```
+
+```@app.route``` helps the server detect the actions such as click or redirect and trigger the decorated functions.
+You could use many paths to access a certain webpage, such as the route '/' and '/into' that link to a same webpage "intro.html".
+And in the html, you just need to write this. And when the server is started or the href is clicked, the function ```intro()``` will be triggered.
+
+```html
+<a href="into"></a>
+```
 
 
 
