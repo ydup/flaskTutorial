@@ -1,4 +1,4 @@
-# Flask + Python + Website Tutorial for Beginners
+# Flask + Python + Webpage Tutorial for Beginners
 
 Author: Yadong Zhang
 Date: 2018-09-24
@@ -95,7 +95,7 @@ And this chapter is a brief introduction to the structure of webpages. The metho
 We have the webpages in the chapter 4, and the first thing you gonna ask must be how I can access the webpage, even more, how I can shift different webpages manually or automatically.
 Before this, you should get to learn the ```@app.route```.
 
-Main.py to access a webpage:
+main.py to access a webpage:
 ```python
 app = Flask(__name__)
  # Basic part of the html
@@ -113,9 +113,38 @@ And in the html, you just need to write this. And when the server is started or 
 <a href="into"></a>
 ```
 
+### 5.2 Receive Data Uploaded From the Webpages
+Post and get methods help webpage communicate with server. In this section, we introduce how the server receive data from webpages.
 
+main.py
+```python
+# Test the upload file from data.html
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload_file():
+	if request.method == 'POST':
+		f =request.files['file']
+		f.save(secure_filename(f.filename))
+		return render_template('data.html', name=f.filename)
+```
 
+data.html - body
+```html
+{% if name %}
+<h1 class="mb-10">{{name}} Data Loaded</h1>
+{% else %}
+<h1 class="mb-10">Please Upload Data</h1>
+{%endif%}
+```
+The keyword ```name``` can be changed to ```f.filename``` when the data file is uploaded to the server.
 
+data.html - form
+```html
+<form action = "uploader" method = "POST" enctype = "multipart/form-data">
+<input type = "file" name = "file"/>
+<input type = "submit" value="Submit"/>
+</form>	
+```
+The ```form``` part creates a interface for user to upload local file.
 
 
 
