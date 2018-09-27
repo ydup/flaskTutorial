@@ -90,8 +90,27 @@ A1.3 The answer goes from an easier one:
 And then, you could find the ```data-sub-text``` of a certain bar with the expression```%data-sub-text```.
 
 ## 2. Structure the Templates with the Help of  Jinja
+### Q2.1 How can I change the templates according to the current route?
+
+A2.1 Sometimes, we need the items of templates can change according to the path. You could use
+```html
+{% if request.path == "/pathName" %}
+{% endif %}
+```
+And the variable can be inserted to the html with jinja, in this way
+```html
+{% if name %}
+<h1>
+	This title is {{name}}.
+</h1>
+{%endif%}
+```
 
 ## 3. Layout / CSS Issues
+### Q3.1 Why is the top nevagate bar covered by the image?
+
+A3.1 You should judge the ```z-index``` of your top bar
+
 
 
 
