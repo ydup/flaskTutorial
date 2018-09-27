@@ -1,7 +1,7 @@
 # Q&A List for the Issues in Webpage
 
 ## 1. Javascipt for Data Visualization with ZingCharts / HighCharts / Q3
-Q1.1 How can I recieve the data from flask for javascript loading?
+### Q1.1 How can I recieve the data from flask for javascript loading?
 
 A1.1 The answer is divided into two parts according the types of data
 
@@ -12,7 +12,7 @@ A1.1 The answer is divided into two parts according the types of data
 	+ The numaric data can be used directly with ```{{data.numaricDataName}}```
 
 - - - 
-Q1.2 How can I use the data in the javascript?
+### Q1.2 How can I use the data in the javascript?
 
 A1.2 Before you use the data, it can be better that you check whether the data exists or not. You can use
 ```html
@@ -67,6 +67,27 @@ And then, if the data that the javascript needs exist, you could use these metho
             }
 ```
 
+- - - 
+
+### Q1.3 __Barplot of ZingChart:__ How do a certain bar show its x ticklabel name, y ticklabel value or series type?
+
+A1.3 The answer goes from an easier one:
+
+1. y ticklabel value: ```%v``` - means the ```values``` in ```series```.
+2. Series type: ```%t``` - means the ```text``` in ```series```.
+3. x ticklabel name:
+	+ You should set a name list of a certain data series,
+```java
+        var myChart = {
+                "series": [{
+                    "values": {{ data.numeric }},
+                    "text": "Series-1",
+                    "data-sub-text": nameStringList
+                    // This nameString list is loaded by the | tojson
+                }]
+            }
+```
+And then, you could find the ```data-sub-text``` of a certain bar with the expression```%data-sub-text```.
 
 ## 2. Structure the Templates with the Help of  Jinja
 
