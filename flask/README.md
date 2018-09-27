@@ -3,6 +3,7 @@
 
 ## Q&A-1
 Q.1 How can I recieve data from website?
+
 A.1 You could use post as the method for upload data or data file from website.
 In the flask, these ways help you obtain data.
 ```python
@@ -36,6 +37,7 @@ And in the html, you could use any kind of form, such as
 
 ## Q&A-2
 Q.2 How can I send data to webpage using flask?
+
 A.2 Before you send them, please prepare all the data into a better structure, such as.
 
 ```python
