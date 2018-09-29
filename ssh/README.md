@@ -12,7 +12,7 @@ pip install scpclient
 
 ```python
 import ssh
-myClient = ssh.SSHClient()
+myclient = ssh.SSHClient()
 # Generate a key
 myclient.set_missing_host_key_policy(ssh.AutoAddPolicy())
 # Connect the server
@@ -22,7 +22,7 @@ myclient.connect(hostname, port=2222, username=username, password=password)
 ## Run the Shell Command with Python
 ```python
 stdin, stdout, stderr = myclient.exec_command("ls")
-print stdin.read()
+print stdout.read()
 ```
 
 ## Upload File with SCP+Python
