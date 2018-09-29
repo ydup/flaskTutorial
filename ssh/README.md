@@ -25,9 +25,19 @@ stdin, stdout, stderr = myclient.exec_command("ls")
 print stdout.read()
 ```
 
+## Close the Shell Command with Python
+```python
+myclient.close()
+```
+
 ## Upload File with SCP+Python
 
 ```python
+import paramiko
+import ssh
+from contextlib import closing
+import scpclient 
+
 ssh = paramiko.SSHClient()
 # Load or generate the host key 
 ssh.load_system_host_keys()
@@ -36,5 +46,25 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(hostname, port=2222, username=username, password=password)
 
 with closing(scpclient.Write(ssh.get_transport(), remote_path=remote_path)) as scp:
-    scp.send_file(local_filename, preserve_times=True, remote_filename=remote_filename)
+    scp.send_file(local_filename, preserve_times=True)
 ```
+
+## Download File with SCP+Python
+
+```python
+import paramiko
+import ssh
+from contextlib import closing
+import scpclient 
+
+ssh = paramiko.SSHClient()
+# Load or generate the host key 
+ssh.load_system_host_keys()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+# Connect the server
+ssh.connect(hostname, port=2222, username=username, password=password)
+
+with closing(scpclient.Read(ssh.get_transport(), remote_path=remote_path)) as scp:
+    scp.receive(remote_filename)
+```
+
